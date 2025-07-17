@@ -12,20 +12,24 @@ import {
 import { Button } from './ui/button'
 import { cn } from '../lib/utils'
 
+type ActivePage = 'dashboard' | 'workflows' | 'integrations' | 'activity' | 'users' | 'settings'
+
 interface SidebarProps {
   className?: string
+  activePage: ActivePage
+  onPageChange: (page: ActivePage) => void
 }
 
 const navigation = [
-  { name: 'Dashboard', href: '#', icon: Home, current: true },
-  { name: 'Workflows', href: '#', icon: GitBranch, current: false },
-  { name: 'Integrations', href: '#', icon: Zap, current: false },
-  { name: 'Activity', href: '#', icon: BarChart3, current: false },
-  { name: 'Users', href: '#', icon: Users, current: false },
-  { name: 'Settings', href: '#', icon: Settings, current: false },
+  { name: 'Dashboard', key: 'dashboard' as const, icon: Home },
+  { name: 'Workflows', key: 'workflows' as const, icon: GitBranch },
+  { name: 'Integrations', key: 'integrations' as const, icon: Zap },
+  { name: 'Activity', key: 'activity' as const, icon: BarChart3 },
+  { name: 'Users', key: 'users' as const, icon: Users },
+  { name: 'Settings', key: 'settings' as const, icon: Settings },
 ]
 
-export function Sidebar({ className }: SidebarProps) {
+export function Sidebar({ className, activePage, onPageChange }: SidebarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
 
@@ -83,13 +87,17 @@ export function Sidebar({ className }: SidebarProps) {
           <nav className="flex-1 space-y-1 p-4">
             {navigation.map((item) => {
               const Icon = item.icon
+              const isCurrent = activePage === item.key
               return (
-                <a
+                <button
                   key={item.name}
-                  href={item.href}
+                  onClick={() => {
+                    onPageChange(item.key)
+                    setIsMobileOpen(false)
+                  }}
                   className={cn(
-                    "group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors",
-                    item.current
+                    "group flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition-colors w-full text-left",
+                    isCurrent
                       ? "bg-blue-50 text-blue-700 border border-blue-200"
                       : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                   )}
@@ -98,16 +106,16 @@ export function Sidebar({ className }: SidebarProps) {
                   <Icon
                     className={cn(
                       "h-5 w-5 flex-shrink-0",
-                      item.current ? "text-blue-600" : "text-slate-500 group-hover:text-slate-700"
+                      isCurrent ? "text-blue-600" : "text-slate-500 group-hover:text-slate-700"
                     )}
                   />
                   {!isCollapsed && (
                     <span className="ml-3 truncate">{item.name}</span>
                   )}
-                  {item.current && !isCollapsed && (
+                  {isCurrent && !isCollapsed && (
                     <div className="ml-auto h-2 w-2 rounded-full bg-blue-600"></div>
                   )}
-                </a>
+                </button>
               )
             })}
           </nav>

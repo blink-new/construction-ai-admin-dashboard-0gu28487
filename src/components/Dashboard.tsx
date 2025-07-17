@@ -1,22 +1,23 @@
+import { useState } from 'react'
 import { Header } from './Header'
 import { Sidebar } from './Sidebar'
 import { SummaryCards } from './SummaryCards'
 import { ActivityFeed } from './ActivityFeed'
+import { WorkflowManagement } from './WorkflowManagement'
+
+type ActivePage = 'dashboard' | 'workflows' | 'integrations' | 'activity' | 'users' | 'settings'
 
 export function Dashboard() {
-  return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Sidebar */}
-      <Sidebar />
-      
-      {/* Main Content */}
-      <div className="lg:pl-64">
-        {/* Header */}
-        <Header />
-        
-        {/* Page Content */}
-        <main className="p-6">
-          <div className="max-w-7xl mx-auto space-y-6">
+  const [activePage, setActivePage] = useState<ActivePage>('dashboard')
+
+  const renderPageContent = () => {
+    switch (activePage) {
+      case 'workflows':
+        return <WorkflowManagement />
+      case 'dashboard':
+      default:
+        return (
+          <>
             {/* Page Title */}
             <div className="mb-8">
               <h1 className="text-2xl font-bold text-slate-900">Dashboard Overview</h1>
@@ -75,7 +76,10 @@ export function Dashboard() {
                 <div className="bg-white rounded-lg border border-slate-200 p-6">
                   <h3 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h3>
                   <div className="space-y-2">
-                    <button className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
+                    <button 
+                      onClick={() => setActivePage('workflows')}
+                      className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md transition-colors"
+                    >
                       Create New Workflow
                     </button>
                     <button className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
@@ -125,6 +129,25 @@ export function Dashboard() {
                 </div>
               </div>
             </div>
+          </>
+        )
+    }
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      {/* Sidebar */}
+      <Sidebar activePage={activePage} onPageChange={setActivePage} />
+      
+      {/* Main Content */}
+      <div className="lg:pl-64">
+        {/* Header */}
+        <Header />
+        
+        {/* Page Content */}
+        <main className="p-6">
+          <div className="max-w-7xl mx-auto space-y-6">
+            {renderPageContent()}
           </div>
         </main>
       </div>
