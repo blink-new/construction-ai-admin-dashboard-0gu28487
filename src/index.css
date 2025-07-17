@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,77 +6,87 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 222 84% 5%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 84% 5%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 84% 5%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 84% 5%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 162 73% 46%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%;
-    --radius: 0.5rem;
-    --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 215 25% 27%;
-    --sidebar-primary: 221 83% 53%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 210 40% 96%;
-    --sidebar-accent-foreground: 222 84% 5%;
-    --sidebar-border: 214 32% 91%;
-    --sidebar-ring: 221 83% 53%;
+    /* Industrial Construction Theme - Dark Base */
+    --background: 28 10% 11%; /* #1c1917 - Dark stone */
+    --foreground: 36 45% 95%; /* Light text */
+    --card: 24 10% 15%; /* Slightly lighter dark */
+    --card-foreground: 36 45% 95%;
+    --popover: 24 10% 15%;
+    --popover-foreground: 36 45% 95%;
+    --primary: 32 95% 44%; /* #d97706 - Construction orange */
+    --primary-foreground: 28 10% 11%;
+    --secondary: 24 10% 20%; /* Dark gray */
+    --secondary-foreground: 36 45% 95%;
+    --muted: 24 10% 20%;
+    --muted-foreground: 36 20% 65%;
+    --accent: 0 84% 55%; /* #dc2626 - Alert red */
+    --accent-foreground: 36 45% 95%;
+    --destructive: 0 84% 55%; /* Alert red */
+    --destructive-foreground: 36 45% 95%;
+    --warning: 45 93% 47%; /* Warning amber */
+    --warning-foreground: 28 10% 11%;
+    --success: 142 76% 36%; /* Safety green */
+    --success-foreground: 36 45% 95%;
+    --border: 24 10% 25%;
+    --input: 24 10% 20%;
+    --ring: 32 95% 44%;
+    --radius: 0.25rem; /* Sharper, more industrial corners */
+    
+    /* Sidebar variables for industrial theme */
+    --sidebar-background: 24 10% 12%;
+    --sidebar-foreground: 36 20% 75%;
+    --sidebar-primary: 32 95% 44%;
+    --sidebar-primary-foreground: 28 10% 11%;
+    --sidebar-accent: 24 10% 18%;
+    --sidebar-accent-foreground: 36 45% 95%;
+    --sidebar-border: 24 10% 22%;
+    --sidebar-ring: 32 95% 44%;
   }
-  
-  .dark {
-    --background: 222 84% 5%;
-    --foreground: 210 40% 98%;
-    --card: 217 33% 17%;
-    --card-foreground: 210 40% 98%;
-    --popover: 217 33% 17%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 215 28% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 215 28% 17%;
-    --muted-foreground: 217 11% 65%;
-    --accent: 162 73% 46%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
-    --ring: 221 83% 53%;
-    --sidebar-background: 217 33% 17%;
-    --sidebar-foreground: 215 20% 65%;
-    --sidebar-primary: 221 83% 53%;
-    --sidebar-primary-foreground: 210 40% 98%;
-    --sidebar-accent: 215 28% 17%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 215 28% 17%;
-    --sidebar-ring: 221 83% 53%;
-  }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
 
   body {
     @apply bg-background text-foreground;
+
+    font-family: Inter, sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Industrial styling */
+  .construction-grid {
+    background-image: 
+      linear-gradient(rgb(217 119 6 / 10%) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(217 119 6 / 10%) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .industrial-shadow {
+    box-shadow: 
+      0 4px 6px -1px rgb(0 0 0 / 30%),
+      0 2px 4px -1px rgb(0 0 0 / 20%),
+      inset 0 1px 0 rgb(217 119 6 / 10%);
+  }
+
+  .safety-glow {
+    box-shadow: 0 0 20px rgb(220 38 38 / 30%);
+  }
+
+  .equipment-status {
+    border-left: 4px solid hsl(var(--primary));
+  }
+
+  .alert-border {
+    border-left: 4px solid hsl(var(--destructive));
+  }
+
+  .success-border {
+    border-left: 4px solid hsl(var(--success));
+  }
+
+  /* Monospace for technical data */
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
   }
 }

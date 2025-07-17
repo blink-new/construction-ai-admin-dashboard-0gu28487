@@ -1,4 +1,4 @@
-import { Bell, Search, Settings, User } from 'lucide-react'
+import { Bell, Search, Settings, User, HardHat, AlertTriangle } from 'lucide-react'
 import { Button } from './ui/button'
 import { Input } from './ui/input'
 import {
@@ -10,20 +10,21 @@ import {
   DropdownMenuTrigger,
 } from './ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Badge } from './ui/badge'
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80 industrial-shadow">
       <div className="flex h-16 items-center justify-between px-6">
         {/* Logo and Company Name */}
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-3">
-            <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-600 to-blue-700 flex items-center justify-center">
-              <div className="h-4 w-4 bg-white rounded-sm"></div>
+            <div className="h-10 w-10 rounded bg-primary flex items-center justify-center">
+              <HardHat className="h-6 w-6 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold text-slate-900">ConstructAI</h1>
-              <p className="text-xs text-slate-500">Admin Dashboard</p>
+              <h1 className="text-lg font-bold text-foreground mono">CONSTRUCTAI</h1>
+              <p className="text-xs text-muted-foreground uppercase tracking-wider">OPERATIONS CENTER</p>
             </div>
           </div>
         </div>
@@ -31,36 +32,44 @@ export function Header() {
         {/* Search Bar */}
         <div className="flex-1 max-w-md mx-8">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+            <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
             <Input
-              placeholder="Search workflows, integrations..."
-              className="pl-10 bg-slate-50 border-slate-200 focus:bg-white"
+              placeholder="Search equipment, sites, alerts..."
+              className="pl-10 bg-input border-border focus:border-primary mono text-sm"
             />
           </div>
         </div>
 
         {/* Right Side Actions */}
         <div className="flex items-center space-x-4">
+          {/* Critical Alerts */}
+          <Button variant="ghost" size="sm" className="relative">
+            <AlertTriangle className="h-5 w-5 text-destructive" />
+            <Badge variant="destructive" className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs safety-glow">
+              3
+            </Badge>
+          </Button>
+
           {/* Notifications */}
           <Button variant="ghost" size="sm" className="relative">
-            <Bell className="h-5 w-5 text-slate-600" />
-            <span className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full text-xs flex items-center justify-center">
-              <span className="h-1.5 w-1.5 bg-white rounded-full"></span>
-            </span>
+            <Bell className="h-5 w-5 text-muted-foreground" />
+            <Badge variant="secondary" className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
+              7
+            </Badge>
           </Button>
 
           {/* Settings */}
           <Button variant="ghost" size="sm">
-            <Settings className="h-5 w-5 text-slate-600" />
+            <Settings className="h-5 w-5 text-muted-foreground" />
           </Button>
 
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="relative h-9 w-9 rounded-full">
-                <Avatar className="h-9 w-9">
+              <Button variant="ghost" className="relative h-9 w-9 rounded">
+                <Avatar className="h-9 w-9 rounded">
                   <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
-                  <AvatarFallback className="bg-blue-100 text-blue-700">
+                  <AvatarFallback className="bg-primary text-primary-foreground rounded">
                     <User className="h-4 w-4" />
                   </AvatarFallback>
                 </Avatar>
@@ -69,10 +78,13 @@ export function Header() {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">John Smith</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    john.smith@constructai.com
+                  <p className="text-sm font-medium leading-none">Mike Rodriguez</p>
+                  <p className="text-xs leading-none text-muted-foreground mono">
+                    m.rodriguez@constructai.com
                   </p>
+                  <Badge variant="outline" className="w-fit mt-1 text-xs">
+                    Site Supervisor
+                  </Badge>
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
@@ -80,14 +92,14 @@ export function Header() {
                 Profile Settings
               </DropdownMenuItem>
               <DropdownMenuItem>
-                Team Settings
+                Safety Protocols
               </DropdownMenuItem>
               <DropdownMenuItem>
-                Billing
+                Equipment Access
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                Log out
+              <DropdownMenuItem className="text-destructive">
+                Sign Out
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

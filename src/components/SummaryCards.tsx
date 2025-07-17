@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Zap, MessageSquare, Users } from 'lucide-react'
+import { TrendingUp, TrendingDown, AlertTriangle, CheckCircle, Truck, HardHat, Wrench, MapPin, Activity } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Badge } from './ui/badge'
 
@@ -18,50 +18,59 @@ function MetricCard({ title, value, change, status, icon, description }: MetricC
   const getChangeIcon = () => {
     if (!change) return null
     return change.type === 'increase' ? (
-      <TrendingUp className="h-3 w-3 text-green-600" />
+      <TrendingUp className="h-3 w-3 text-success" />
     ) : change.type === 'decrease' ? (
-      <TrendingDown className="h-3 w-3 text-red-600" />
+      <TrendingDown className="h-3 w-3 text-destructive" />
     ) : null
   }
 
   const getChangeColor = () => {
     if (!change) return ''
     return change.type === 'increase' 
-      ? 'text-green-600' 
+      ? 'text-success' 
       : change.type === 'decrease' 
-      ? 'text-red-600' 
-      : 'text-slate-600'
+      ? 'text-destructive' 
+      : 'text-muted-foreground'
   }
 
   const getStatusColor = () => {
     switch (status) {
-      case 'success': return 'text-green-600'
-      case 'warning': return 'text-amber-600'
-      case 'error': return 'text-red-600'
-      default: return 'text-blue-600'
+      case 'success': return 'text-success bg-success/10'
+      case 'warning': return 'text-warning bg-warning/10'
+      case 'error': return 'text-destructive bg-destructive/10'
+      default: return 'text-primary bg-primary/10'
+    }
+  }
+
+  const getBorderClass = () => {
+    switch (status) {
+      case 'success': return 'success-border'
+      case 'warning': return 'border-l-4 border-l-warning'
+      case 'error': return 'alert-border'
+      default: return 'equipment-status'
     }
   }
 
   return (
-    <Card className="relative overflow-hidden">
+    <Card className={`relative overflow-hidden industrial-shadow ${getBorderClass()}`}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium text-slate-600">{title}</CardTitle>
-        <div className={`p-2 rounded-lg bg-slate-50 ${getStatusColor()}`}>
+        <CardTitle className="text-sm font-medium text-muted-foreground mono uppercase tracking-wider">{title}</CardTitle>
+        <div className={`p-2 rounded ${getStatusColor()}`}>
           {icon}
         </div>
       </CardHeader>
       <CardContent>
         <div className="flex items-baseline space-x-2">
-          <div className="text-2xl font-bold text-slate-900">{value}</div>
+          <div className="text-3xl font-bold text-foreground mono">{value}</div>
           {change && (
             <div className={`flex items-center space-x-1 text-sm ${getChangeColor()}`}>
               {getChangeIcon()}
-              <span>{change.value}</span>
+              <span className="mono">{change.value}</span>
             </div>
           )}
         </div>
         {description && (
-          <p className="text-xs text-slate-500 mt-1">{description}</p>
+          <p className="text-xs text-muted-foreground mt-2 mono">{description}</p>
         )}
       </CardContent>
     </Card>
@@ -70,40 +79,41 @@ function MetricCard({ title, value, change, status, icon, description }: MetricC
 
 export function SummaryCards() {
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       <MetricCard
-        title="Active Workflows"
-        value={24}
-        change={{ value: '+12%', type: 'increase' }}
+        title="Active Job Sites"
+        value={8}
+        change={{ value: '+2', type: 'increase' }}
         status="success"
-        icon={<Zap className="h-4 w-4" />}
-        description="Currently running processes"
+        icon={<MapPin className="h-5 w-5" />}
+        description="Sites with ongoing operations"
       />
       
       <MetricCard
-        title="Messages Processed Today"
-        value="1,247"
-        change={{ value: '+8.2%', type: 'increase' }}
-        status="info"
-        icon={<MessageSquare className="h-4 w-4" />}
-        description="Automated communications sent"
-      />
-      
-      <MetricCard
-        title="Connected Services"
-        value="4/6"
+        title="Equipment Online"
+        value="24/28"
+        change={{ value: '+3', type: 'increase' }}
         status="warning"
-        icon={<CheckCircle className="h-4 w-4" />}
-        description="2 services need attention"
+        icon={<Truck className="h-5 w-5" />}
+        description="4 units require maintenance"
       />
       
       <MetricCard
-        title="Recent Errors"
+        title="Safety Incidents"
         value={3}
         change={{ value: '-2', type: 'decrease' }}
         status="error"
-        icon={<AlertTriangle className="h-4 w-4" />}
-        description="Down from 5 yesterday"
+        icon={<AlertTriangle className="h-5 w-5" />}
+        description="Requires immediate attention"
+      />
+      
+      <MetricCard
+        title="Crew Efficiency"
+        value="94%"
+        change={{ value: '+5.2%', type: 'increase' }}
+        status="success"
+        icon={<HardHat className="h-5 w-5" />}
+        description="Above target performance"
       />
     </div>
   )

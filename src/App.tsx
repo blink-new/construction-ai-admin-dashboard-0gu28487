@@ -1,7 +1,11 @@
 import { Dashboard } from './components/Dashboard'
 
 function App() {
-  return <Dashboard />
+  return (
+    <div className="min-h-screen bg-background construction-grid">
+      <Dashboard />
+    </div>
+  )
 }
 
 export default App

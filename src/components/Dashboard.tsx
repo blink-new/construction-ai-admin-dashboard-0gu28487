@@ -4,6 +4,21 @@ import { Sidebar } from './Sidebar'
 import { SummaryCards } from './SummaryCards'
 import { ActivityFeed } from './ActivityFeed'
 import { WorkflowManagement } from './WorkflowManagement'
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
+import { Badge } from './ui/badge'
+import { Button } from './ui/button'
+import { 
+  Server, 
+  Database, 
+  HardDisk, 
+  Users, 
+  MapPin, 
+  Truck, 
+  HardHat,
+  Wrench,
+  AlertTriangle,
+  Plus
+} from 'lucide-react'
 
 type ActivePage = 'dashboard' | 'workflows' | 'integrations' | 'activity' | 'users' | 'settings'
 
@@ -20,9 +35,9 @@ export function Dashboard() {
           <>
             {/* Page Title */}
             <div className="mb-8">
-              <h1 className="text-2xl font-bold text-slate-900">Dashboard Overview</h1>
-              <p className="text-slate-600 mt-1">
-                Monitor your construction AI workflows and system performance
+              <h1 className="text-3xl font-bold text-foreground mono">OPERATIONS CENTER</h1>
+              <p className="text-muted-foreground mt-2 mono">
+                Real-time monitoring and control of construction site operations
               </p>
             </div>
 
@@ -35,98 +50,121 @@ export function Dashboard() {
                 <ActivityFeed />
               </div>
               
-              {/* Quick Actions Sidebar */}
+              {/* Control Panel Sidebar */}
               <div className="space-y-6">
                 {/* System Status */}
-                <div className="bg-white rounded-lg border border-slate-200 p-6">
-                  <h3 className="text-lg font-semibold text-slate-900 mb-4">System Status</h3>
-                  <div className="space-y-3">
+                <Card className="industrial-shadow">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-bold mono flex items-center">
+                      <Server className="h-5 w-5 mr-2 text-primary" />
+                      SYSTEM STATUS
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">API Response Time</span>
+                      <span className="text-sm text-muted-foreground mono">API RESPONSE</span>
                       <div className="flex items-center space-x-2">
-                        <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        <span className="text-sm font-medium text-slate-900">142ms</span>
+                        <div className="h-2 w-2 rounded-full bg-success"></div>
+                        <span className="text-sm font-medium text-foreground mono">89ms</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Database Health</span>
+                      <span className="text-sm text-muted-foreground mono">DATABASE</span>
                       <div className="flex items-center space-x-2">
-                        <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        <span className="text-sm font-medium text-slate-900">Optimal</span>
+                        <div className="h-2 w-2 rounded-full bg-success"></div>
+                        <span className="text-sm font-medium text-foreground mono">OPTIMAL</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Storage Usage</span>
+                      <span className="text-sm text-muted-foreground mono">STORAGE</span>
                       <div className="flex items-center space-x-2">
-                        <div className="h-2 w-2 rounded-full bg-amber-500"></div>
-                        <span className="text-sm font-medium text-slate-900">68%</span>
+                        <div className="h-2 w-2 rounded-full bg-warning"></div>
+                        <span className="text-sm font-medium text-foreground mono">73%</span>
                       </div>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm text-slate-600">Active Connections</span>
+                      <span className="text-sm text-muted-foreground mono">CONNECTIONS</span>
                       <div className="flex items-center space-x-2">
-                        <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        <span className="text-sm font-medium text-slate-900">247</span>
+                        <div className="h-2 w-2 rounded-full bg-success"></div>
+                        <span className="text-sm font-medium text-foreground mono">156</span>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
 
                 {/* Quick Actions */}
-                <div className="bg-white rounded-lg border border-slate-200 p-6">
-                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Quick Actions</h3>
-                  <div className="space-y-2">
-                    <button 
+                <Card className="industrial-shadow">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-bold mono flex items-center">
+                      <Wrench className="h-5 w-5 mr-2 text-primary" />
+                      QUICK ACTIONS
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-2">
+                    <Button 
+                      variant="ghost" 
+                      className="w-full justify-start mono text-sm"
                       onClick={() => setActivePage('workflows')}
-                      className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md transition-colors"
                     >
-                      Create New Workflow
-                    </button>
-                    <button className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
-                      Add Integration
-                    </button>
-                    <button className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
-                      View System Logs
-                    </button>
-                    <button className="w-full text-left px-3 py-2 text-sm text-slate-700 hover:bg-slate-50 rounded-md transition-colors">
-                      Generate Report
-                    </button>
-                  </div>
-                </div>
+                      <Plus className="h-4 w-4 mr-2" />
+                      NEW SITE WORKFLOW
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start mono text-sm">
+                      <Truck className="h-4 w-4 mr-2" />
+                      ADD EQUIPMENT
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start mono text-sm">
+                      <AlertTriangle className="h-4 w-4 mr-2" />
+                      SAFETY REPORT
+                    </Button>
+                    <Button variant="ghost" className="w-full justify-start mono text-sm">
+                      <HardHat className="h-4 w-4 mr-2" />
+                      CREW ASSIGNMENT
+                    </Button>
+                  </CardContent>
+                </Card>
 
-                {/* Recent Projects */}
-                <div className="bg-white rounded-lg border border-slate-200 p-6">
-                  <h3 className="text-lg font-semibold text-slate-900 mb-4">Recent Projects</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3">
-                      <div className="h-8 w-8 rounded-lg bg-blue-100 flex items-center justify-center">
-                        <div className="h-3 w-3 bg-blue-600 rounded-sm"></div>
+                {/* Active Sites */}
+                <Card className="industrial-shadow">
+                  <CardHeader>
+                    <CardTitle className="text-lg font-bold mono flex items-center">
+                      <MapPin className="h-5 w-5 mr-2 text-primary" />
+                      ACTIVE SITES
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center space-x-3 equipment-status p-3 rounded">
+                      <div className="h-10 w-10 rounded bg-success/10 flex items-center justify-center">
+                        <HardHat className="h-5 w-5 text-success" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-900 truncate">Project Alpha</p>
-                        <p className="text-xs text-slate-500">Building Extension</p>
+                        <p className="text-sm font-medium text-foreground mono truncate">SITE ALPHA</p>
+                        <p className="text-xs text-muted-foreground mono">Downtown Construction</p>
+                        <Badge variant="outline" className="mt-1 text-xs mono">24 CREW</Badge>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="h-8 w-8 rounded-lg bg-green-100 flex items-center justify-center">
-                        <div className="h-3 w-3 bg-green-600 rounded-sm"></div>
+                    <div className="flex items-center space-x-3 equipment-status p-3 rounded">
+                      <div className="h-10 w-10 rounded bg-warning/10 flex items-center justify-center">
+                        <Truck className="h-5 w-5 text-warning" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-900 truncate">Project Beta</p>
-                        <p className="text-xs text-slate-500">Foundation Work</p>
+                        <p className="text-sm font-medium text-foreground mono truncate">SITE BETA</p>
+                        <p className="text-xs text-muted-foreground mono">Highway Extension</p>
+                        <Badge variant="outline" className="mt-1 text-xs mono">18 CREW</Badge>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="h-8 w-8 rounded-lg bg-amber-100 flex items-center justify-center">
-                        <div className="h-3 w-3 bg-amber-600 rounded-sm"></div>
+                    <div className="flex items-center space-x-3 alert-border p-3 rounded">
+                      <div className="h-10 w-10 rounded bg-destructive/10 flex items-center justify-center">
+                        <AlertTriangle className="h-5 w-5 text-destructive" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-slate-900 truncate">Project Gamma</p>
-                        <p className="text-xs text-slate-500">Renovation</p>
+                        <p className="text-sm font-medium text-foreground mono truncate">SITE GAMMA</p>
+                        <p className="text-xs text-muted-foreground mono">Residential Complex</p>
+                        <Badge variant="destructive" className="mt-1 text-xs mono">INCIDENT</Badge>
                       </div>
                     </div>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </>
@@ -135,7 +173,7 @@ export function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-background">
       {/* Sidebar */}
       <Sidebar activePage={activePage} onPageChange={setActivePage} />
       
